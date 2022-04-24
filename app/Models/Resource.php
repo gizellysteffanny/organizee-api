@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Resource extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'url',
+        'description',
+        'user_id'
+    ];
 }

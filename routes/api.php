@@ -24,4 +24,7 @@ Route::group([
     'namespace' => 'App\Http\Controllers',
 ], function() {
     Route::get('resources', 'ResourcesController@index');
+    Route::get('resources/{id}', 'ResourcesController@show');
+    Route::post('resources', 'ResourcesController@store');
+    Route::delete('resources/{id}', 'ResourcesController@delete');
 });
