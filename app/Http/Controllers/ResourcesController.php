@@ -10,9 +10,15 @@ class ResourcesController extends Controller
 {
     public function index(Request $request) {
         $user_id = $request->user()->id;
-        $resources = Resource::where('user_id', '=', $user_id)->get();
-        
-        return $resources->toJson();
+        $resources = Resource::query();
+
+        if ($query = $request->input('q')) {
+            $resources->orWhereRaw("title LIKE '%" . $query . "%' AND user_id = " . $user_id)
+                ->orWhereRaw("url LIKE '%" . $query . "%' AND user_id = " . $user_id)
+                ->orWhereRaw("description LIKE '%" . $query . "%' AND user_id = " . $user_id);
+        }
+
+        return $resources->where('user_id', '=', $user_id)->get();
     }
 
     public function show(Request $request, $id) {
