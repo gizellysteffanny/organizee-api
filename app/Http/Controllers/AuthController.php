@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -45,9 +45,10 @@ class AuthController extends Controller
             ], 401);
         
         $user = $request->user();
-        $token = $user->createToken('Access Token')->accessToken();
+        $token = $user->createToken('Access Token')->accessToken;
 
         return response()->json([
+            'name' => $user->name,
             'token' => $token
         ], 200);
     }
